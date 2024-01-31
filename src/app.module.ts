@@ -6,12 +6,14 @@ import { ProductsModule } from './products/products.module';
 import { AuthModule } from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
 // import { ConfigModule } from '@nestjs/config';
+import { DatabaseModule } from './database/database.module';
 @Module({
   imports: [
     UsersModule,
     ProductsModule,
     AuthModule,
     AdminModule,
+    DatabaseModule,
     // ConfigModule.forRoot({
     //   envFilePath: '.env',
     //   isGlobal: true,
