@@ -20,7 +20,12 @@ export class AuthController {
     @Body() body: { username: string; password: string },
   ): Promise<any> {
     const { username, password } = body;
-    return await this.authService.signIn(username, password);
+    try {
+      const result = await this.authService.signIn(username, password);
+      return result;
+    } catch (e) {
+      return { message: e.message };
+    }
   }
 
   @UseGuards(AuthGuard)

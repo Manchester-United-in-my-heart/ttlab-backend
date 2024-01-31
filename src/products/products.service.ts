@@ -16,12 +16,11 @@ export class ProductsService {
   }
 
   async findAll() {
-    await this.productModel.find().exec();
+    return await this.productModel.find().exec();
   }
 
   async findOne(id: string) {
-    const product = this.productModel.findById(id).exec();
-    return product;
+    return this.productModel.findById(id).exec();
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
@@ -30,7 +29,10 @@ export class ProductsService {
   }
 
   remove(id: string) {
-    this.productModel.findByIdAndDelete(id).exec();
+    this.productModel
+      .findByIdAndDelete(id)
+      .exec()
+      .then(() => {});
     return `Deleted \n ${id}`;
   }
 }
