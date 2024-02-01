@@ -31,8 +31,6 @@ import { PasscorsMiddleware } from './passcors/passcors.middleware';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(PasscorsMiddleware)
-      .forRoutes({ path: '/*', method: RequestMethod.ALL });
+    consumer.apply(PasscorsMiddleware).forRoutes('*');
   }
 }
