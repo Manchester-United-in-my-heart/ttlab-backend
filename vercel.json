@@ -2,6 +2,10 @@
   "version": 2,
   "builds": [
     {
+      "src": "package.json",
+      "use": "@vercel/static-build"
+    },
+    {
       "src": "src/main.ts",
       "use": "@vercel/node",
       "config": { "includeFiles": "dist/**" }
@@ -11,13 +15,7 @@
     {
       "src": "/(.*)",
       "dest": "src/main.ts",
-      "methods": [
-        "GET",
-        "POST",
-        "PUT",
-        "PATCH",
-        "DELETE"
-      ]
+      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE"]
     }
   ]
 }

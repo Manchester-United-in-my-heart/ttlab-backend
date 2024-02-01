@@ -5,23 +5,37 @@ import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.int
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const whiteList = '*';
-  const corsOptions: CorsOptions = {
-    origin:
-      whiteList?.split(',')?.length > 1 ? whiteList.split(',') : whiteList,
-    optionsSuccessStatus: 200,
-    methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-  };
-  app.enableCors(corsOptions);
-  app.enableCors({
-    origin: '*',
-    methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-  });
+  // const whiteList = '*';
+  // const corsOptions: CorsOptions = {
+  //   origin:
+  //     whiteList?.split(',')?.length > 1 ? whiteList.split(',') : whiteList,
+  //   optionsSuccessStatus: 200,
+  //   methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+  // };
+  // app.enableCors(corsOptions);
+  // app.enableCors({
+  //   origin: '*',
+  //   methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+  // });
   // app.enableCors({
   //   allowedHeaders: ['content-type'],
   //   origin: 'http://localhost:3000',
   //   credentials: true,
   // });
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: false,
+  });
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header(
+      'Access-Control-Allow-Methods',
+      'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+    );
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    next();
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
