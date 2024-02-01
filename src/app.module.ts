@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -8,6 +13,7 @@ import { AdminModule } from './admin/admin.module';
 // import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { PasscorsMiddleware } from './passcors/passcors.middleware';
+
 @Module({
   imports: [
     UsersModule,
@@ -25,6 +31,8 @@ import { PasscorsMiddleware } from './passcors/passcors.middleware';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(PasscorsMiddleware).forRoutes('*');
+    consumer
+      .apply(PasscorsMiddleware)
+      .forRoutes({ path: '/*', method: RequestMethod.ALL });
   }
 }
