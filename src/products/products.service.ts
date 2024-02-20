@@ -11,28 +11,48 @@ export class ProductsService {
     private productModel: Model<Product>,
   ) {}
   async create(createProductDto: CreateProductDto) {
-    await this.productModel.create(createProductDto);
-    return `Created \n ${createProductDto}`;
+    try {
+      await this.productModel.create(createProductDto);
+      return `Created \n ${createProductDto}`;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async findAll() {
-    return await this.productModel.find().exec();
+    try {
+      return await this.productModel.find().exec();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async findOne(id: string) {
-    return this.productModel.findById(id).exec();
+    try {
+      return this.productModel.findById(id).exec();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
-    await this.productModel.findByIdAndUpdate(id, updateProductDto).exec();
-    return `Updated \n ${updateProductDto}`;
+    try {
+      await this.productModel.findByIdAndUpdate(id, updateProductDto).exec();
+      return `Updated \n ${updateProductDto}`;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   remove(id: string) {
-    this.productModel
-      .findByIdAndDelete(id)
-      .exec()
-      .then(() => {});
-    return `Deleted \n ${id}`;
+    try {
+      this.productModel
+        .findByIdAndDelete(id)
+        .exec()
+        .then(() => {});
+      return `Deleted \n ${id}`;
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

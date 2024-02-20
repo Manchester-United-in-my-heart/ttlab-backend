@@ -12,27 +12,47 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    await this.userModel.create(createUserDto);
-    return `Created \n ${createUserDto}`;
+    try {
+      await this.userModel.create(createUserDto);
+      return `Created \n ${createUserDto}`;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async findAll() {
-    const users = await this.userModel.find().exec();
-    return users;
+    try {
+      const users = await this.userModel.find().exec();
+      return users;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async findOne(id: string) {
-    const user = this.userModel.findById(id).exec();
-    return user;
+    try {
+      const user = this.userModel.findById(id).exec();
+      return user;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
-    this.userModel.findByIdAndUpdate(id, updateUserDto).exec();
-    return `Updated \n ${updateUserDto}`;
+    try {
+      this.userModel.findByIdAndUpdate(id, updateUserDto).exec();
+      return `Updated \n ${updateUserDto}`;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   remove(id: string) {
-    this.userModel.findByIdAndDelete(id).exec();
-    return `This action removes a #${id} user`;
+    try {
+      this.userModel.findByIdAndDelete(id).exec();
+      return `This action removes a #${id} user`;
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
