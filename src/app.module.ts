@@ -13,6 +13,8 @@ import { AdminModule } from './admin/admin.module';
 // import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { PasscorsMiddleware } from './passcors/passcors.middleware';
+import { SeederService } from './tasks/seeder/seeder.service';
+import { SeederModule } from './tasks/seeder/seeder.module';
 
 @Module({
   imports: [
@@ -21,13 +23,14 @@ import { PasscorsMiddleware } from './passcors/passcors.middleware';
     AuthModule,
     AdminModule,
     DatabaseModule,
+    SeederModule,
     // ConfigModule.forRoot({
     //   envFilePath: '.env',
     //   isGlobal: true,
     // }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, SeederService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

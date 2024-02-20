@@ -17,5 +17,6 @@ import { AuthGuard } from '../auth/auth.guard';
     ProductsService,
     ...productsProviders,
   ],
+  exports: [ProductsService, ...productsProviders],
 })
 export class ProductsModule {}
