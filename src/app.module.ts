@@ -1,9 +1,4 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -13,8 +8,6 @@ import { AdminModule } from './admin/admin.module';
 // import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { PasscorsMiddleware } from './passcors/passcors.middleware';
-import { SeederService } from './tasks/seeder/seeder.service';
-import { SeederModule } from './tasks/seeder/seeder.module';
 
 @Module({
   imports: [
@@ -23,14 +16,13 @@ import { SeederModule } from './tasks/seeder/seeder.module';
     AuthModule,
     AdminModule,
     DatabaseModule,
-    SeederModule,
     // ConfigModule.forRoot({
     //   envFilePath: '.env',
     //   isGlobal: true,
     // }),
   ],
   controllers: [AppController],
-  providers: [AppService, SeederService],
+  providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
