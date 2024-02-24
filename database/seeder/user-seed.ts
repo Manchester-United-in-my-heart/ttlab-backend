@@ -7,7 +7,7 @@ async function run() {
 
     // Specify the database and collection
 
-    const db = client.db('shopclone');
+    const db = client.db('test');
     const userCollection = db.collection('users');
     const users = [
       {

@@ -3,12 +3,12 @@ import {
   Controller,
   Get,
   Post,
-  UseGuards,
   Request,
+  UseGuards,
 } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthGuard } from './auth.guard';
 import { Public } from '../../public-decorator';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
@@ -22,6 +22,19 @@ export class AuthController {
     const { username, password } = body;
     try {
       const result = await this.authService.signIn(username, password);
+      console.log('result', result);
+      return result;
+    } catch (e) {
+      return { message: e.message };
+    }
+  }
+
+  @Public()
+  @Post('refresh-token')
+  async refreshToken(@Body() body: { refreshToken: string }) {
+    const { refreshToken } = body;
+    try {
+      const result = await this.authService.refreshToken(refreshToken);
       return result;
     } catch (e) {
       return { message: e.message };
