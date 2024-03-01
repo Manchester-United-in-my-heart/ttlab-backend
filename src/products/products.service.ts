@@ -15,7 +15,7 @@ export class ProductsService {
       await this.productModel.create(createProductDto);
       return `Created \n ${createProductDto}`;
     } catch (e) {
-      console.log(e);
+      throw new Error(e);
     }
   }
 
@@ -23,7 +23,7 @@ export class ProductsService {
     try {
       return await this.productModel.find().exec();
     } catch (e) {
-      console.log(e);
+      throw new Error(e);
     }
   }
 
@@ -31,16 +31,16 @@ export class ProductsService {
     try {
       return this.productModel.findById(id).exec();
     } catch (e) {
-      console.log(e);
+      throw new Error(e);
     }
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
     try {
       await this.productModel.findByIdAndUpdate(id, updateProductDto).exec();
-      return `Updated \n ${updateProductDto}`;
+      return this.productModel.find().exec();
     } catch (e) {
-      console.log(e);
+      throw new Error(e);
     }
   }
 
@@ -52,7 +52,7 @@ export class ProductsService {
         .then(() => {});
       return `Deleted \n ${id}`;
     } catch (e) {
-      console.log(e);
+      throw new Error(e);
     }
   }
 }
