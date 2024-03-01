@@ -1,26 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { HttpExceptionFilter } from './http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // const whiteList = '*';
-  // const corsOptions: CorsOptions = {
-  //   origin:
-  //     whiteList?.split(',')?.length > 1 ? whiteList.split(',') : whiteList,
-  //   optionsSuccessStatus: 200,
-  //   methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-  // };
-  // app.enableCors(corsOptions);
-  // app.enableCors({
-  //   origin: '*',
-  //   methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-  // });
-  // app.enableCors({
-  //   allowedHeaders: ['content-type'],
-  //   origin: 'http://localhost:3000',
-  //   credentials: true,
-  // });
+  app.useGlobalFilters(new HttpExceptionFilter());
   app.enableCors({
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
@@ -28,9 +13,10 @@ async function bootstrap() {
   });
   app.useGlobalPipes(
     new ValidationPipe({
-      transform: true,
+      // transform: true,
     }),
   );
   await app.listen(process.env.PORT || 3000);
 }
+
 bootstrap();

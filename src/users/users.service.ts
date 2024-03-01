@@ -16,7 +16,7 @@ export class UsersService {
       await this.userModel.create(createUserDto);
       return `Created \n ${createUserDto}`;
     } catch (e) {
-      console.log(e);
+      throw new Error(e);
     }
   }
 
@@ -25,25 +25,25 @@ export class UsersService {
       const users = await this.userModel.find().exec();
       return users;
     } catch (e) {
-      console.log(e);
+      throw new Error(e);
     }
   }
 
   async findOne(id: string) {
     try {
-      const user = this.userModel.findById(id).exec();
+      const user = await this.userModel.findById(id).exec();
       return user;
     } catch (e) {
-      console.log(e);
+      throw new Error(e);
     }
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
     try {
       this.userModel.findByIdAndUpdate(id, updateUserDto).exec();
-      return `Updated \n ${updateUserDto}`;
+      return this.userModel.find().exec();
     } catch (e) {
-      console.log(e);
+      throw new Error(e);
     }
   }
 
@@ -52,7 +52,7 @@ export class UsersService {
       this.userModel.findByIdAndDelete(id).exec();
       return `This action removes a #${id} user`;
     } catch (e) {
-      console.log(e);
+      throw new Error(e);
     }
   }
 }
