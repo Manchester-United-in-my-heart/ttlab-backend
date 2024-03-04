@@ -50,7 +50,7 @@ export class UsersService {
   remove(id: string) {
     try {
       this.userModel.findByIdAndDelete(id).exec();
-      return `This action removes a #${id} user`;
+      return this.userModel.find().exec();
     } catch (e) {
       throw new Error(e);
     }

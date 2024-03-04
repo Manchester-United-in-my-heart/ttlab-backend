@@ -50,7 +50,7 @@ export class ProductsService {
         .findByIdAndDelete(id)
         .exec()
         .then(() => {});
-      return `Deleted \n ${id}`;
+      return this.productModel.find().exec();
     } catch (e) {
       throw new Error(e);
     }
