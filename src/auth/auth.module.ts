@@ -5,7 +5,8 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { jwtConstants } from './constants';
 import { DatabaseModule } from 'src/database/database.module';
-import { tokenProviders } from './auth.providers';
+import { adminProviders, tokenProviders } from './auth.providers';
+import { AdminService } from '../admin/admin.service';
 
 @Module({
   imports: [
@@ -18,6 +19,12 @@ import { tokenProviders } from './auth.providers';
     DatabaseModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtService, ...tokenProviders],
+  providers: [
+    AuthService,
+    AdminService,
+    JwtService,
+    ...tokenProviders,
+    ...adminProviders,
+  ],
 })
 export class AuthModule {}
