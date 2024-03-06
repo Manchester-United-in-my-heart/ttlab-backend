@@ -2,15 +2,18 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @Schema()
-export class Token extends Document {
+export class Admin extends Document {
   @Prop({ required: true })
-  admin_id: string;
+  username: string;
+
+  @Prop()
+  password: string;
 
   @Prop({ required: true })
-  access_token: string;
+  email: string;
 
   @Prop({ required: true })
-  refresh_token: string;
+  image: string;
 }
 
-export const TokenSchema = SchemaFactory.createForClass(Token);
+export const AdminSchema = SchemaFactory.createForClass(Admin);

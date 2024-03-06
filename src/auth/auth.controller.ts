@@ -30,12 +30,17 @@ export class AuthController {
   }
 
   @Public()
+  @Post('signin-2')
+  async signIn2(@Body() token: any): Promise<any> {
+    return await this.authService.signInByGoogle(token);
+  }
+
+  @Public()
   @Post('refresh-token')
   async refreshToken(@Body() body: { refreshToken: string }) {
     const { refreshToken } = body;
     try {
-      const result = await this.authService.refreshToken(refreshToken);
-      return result;
+      return await this.authService.refreshToken(refreshToken);
     } catch (e) {
       return { message: e.message };
     }
@@ -44,6 +49,10 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
-    return req.user;
+    try {
+      return req.user;
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
