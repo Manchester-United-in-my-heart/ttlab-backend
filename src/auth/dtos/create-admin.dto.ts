@@ -1,4 +1,10 @@
-import { IsEmail, IsOptional, IsString, IsUrl } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsOptional,
+  IsString,
+  IsUrl,
+} from 'class-validator';
 
 export class CreateAdminDto {
   @IsEmail()
@@ -13,4 +19,7 @@ export class CreateAdminDto {
 
   @IsUrl()
   readonly image;
+
+  @IsBoolean({})
+  readonly mfa;
 }

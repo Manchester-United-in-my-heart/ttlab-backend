@@ -8,6 +8,7 @@ import { AdminModule } from './admin/admin.module';
 // import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { PasscorsMiddleware } from './passcors/passcors.middleware';
+import { OtpModule } from './otp/otp.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { PasscorsMiddleware } from './passcors/passcors.middleware';
     AuthModule,
     AdminModule,
     DatabaseModule,
+    OtpModule,
     // ConfigModule.forRoot({
     //   envFilePath: '.env',
     //   isGlobal: true,
