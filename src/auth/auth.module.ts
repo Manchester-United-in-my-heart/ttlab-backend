@@ -7,6 +7,7 @@ import { jwtConstants } from './constants';
 import { DatabaseModule } from 'src/database/database.module';
 import { adminProviders, tokenProviders } from './auth.providers';
 import { AdminService } from '../admin/admin.service';
+import { OtpService } from '../otp/otp.service';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AdminService } from '../admin/admin.service';
     AuthService,
     AdminService,
     JwtService,
+    OtpService,
     ...tokenProviders,
     ...adminProviders,
   ],
