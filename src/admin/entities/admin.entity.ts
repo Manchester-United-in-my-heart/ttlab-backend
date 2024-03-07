@@ -6,8 +6,8 @@ export class Admin extends Document {
   @Prop({ required: true })
   username: string;
 
-  @Prop()
-  password: string;
+  @Prop({ required: false })
+  password?: string;
 
   @Prop({ required: true })
   email: string;
@@ -22,7 +22,7 @@ export class Admin extends Document {
   secret: string;
 
   @Prop({ required: false })
-  qrCodeImageURL: string;
+  qrCodeImageURL?: string;
 }
 
 export const AdminSchema = SchemaFactory.createForClass(Admin);

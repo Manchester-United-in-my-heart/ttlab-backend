@@ -8,6 +8,7 @@ import { config } from 'dotenv';
 import { OAuth2Client } from 'google-auth-library';
 import { CreateAdminDto } from './dtos/create-admin.dto';
 import { OtpService } from '../otp/otp.service';
+import { Admin } from '../admin/entities/admin.entity';
 
 config();
 const client = new OAuth2Client(
@@ -126,11 +127,12 @@ export class AuthService {
       maxExpiry: 12345,
     });
     const payload = ticket.getPayload();
-    const requiredPayload: CreateAdminDto = {
+    const requiredPayload = {
       email: payload.email,
       username: payload.name,
       image: payload.picture,
       mfa: false,
+      secret: await this.otpService.generateUniqueSecret(),
     };
     const adminId = await this.adminService.createOne(requiredPayload);
     const access_token = await this.jwtService.signAsync(requiredPayload, {
