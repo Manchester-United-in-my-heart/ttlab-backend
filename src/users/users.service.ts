@@ -14,7 +14,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     try {
       await this.userModel.create(createUserDto);
-      return `Created \n ${createUserDto}`;
+      return this.userModel.find().exec();
     } catch (e) {
       throw new Error(e);
     }
