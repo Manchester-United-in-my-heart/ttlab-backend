@@ -13,7 +13,7 @@ export class ProductsService {
   async create(createProductDto: CreateProductDto) {
     try {
       await this.productModel.create(createProductDto);
-      return `Created \n ${createProductDto}`;
+      return this.productModel.find().exec();
     } catch (e) {
       throw new Error(e);
     }
